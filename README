@@ -1,1 +1,20 @@
-== Makes the editor bigger and adds in custom tags ==
+== Tweakr ==
+
+TUMBLR
+
+	Current features:
+
+		* Edit the size of the tumblr editor
+		* Adds "quicktags" for consistent tagging
+		* Adds buttons to the WYSIWYG for adding code snippets to your text blogs
+
+	Future features:
+
+		* An "embed" button to quickly inject vimeo / youtube / etc HTML snippets
+		* Possibly a complete replacement of the editor
+
+FACEBOOK, GITHUB, TUMBLR, TWITTER, GOOGLE DOCS
+
+	Future features:
+
+		* Add notifications to the favicon
