@@ -1,0 +1,7 @@
+/* Syntaxes */
+	#post_two_toolbar1 .tweakr {padding: 0 0 0 5px;}
+/* Make my tags look nicer */
+	#my_tags		{padding-bottom: 10px!important;}
+	#my_tags span,
+	#my_tags a		{float: left; padding: 3px 5px; border: solid 1px #B7C963; background-color: #C7DA76; color: #111; margin: 0 5px 5px 0; border-radius: 2px; font: 11px 'Lucida Grande'; cursor: pointer;}
+	#my_tags a		{border-color: #C99B63; background-color: #DAAE76; text-decoration: none;}

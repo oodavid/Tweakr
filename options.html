@@ -1,0 +1,200 @@
+<html>
+<head>
+	<title>Tumblr Tweakr - Settings</title>
+	<script src="jquery-1.7.1.min.js"></script>
+	<script>
+		$(document).ready(function(e){
+			// Load the options
+			var options = JSON.parse(localStorage["options"] || '{}');
+			//
+			// UI
+			//
+				$('#editor_height').change(function(e){
+					$('#editor_height_feedback').html($(this).val() + 'px');
+				});
+			//
+			// Set the values
+			//
+				// Editor height
+				if(options.editor_height){
+					$('#editor_height').val(options.editor_height).change();
+				}
+				// Tags list
+				if(options.tags){
+					$('#tags').val(options.tags.join(', '));
+				}
+				// Syntaxes
+				if(options.syntaxes){
+					$.each(options.syntaxes, function(k,v){
+						$('[name=syntaxes][value=' + v + ']').attr('checked', 'checked');
+					});
+				}
+			//
+			// Save action
+			//
+				$('#save').click(function(e){
+					// What are the syntaxes?
+					var checked = $('[name=syntaxes]:checked');
+					var syntaxes = [];
+					$.each(checked, function(k,v){
+						syntaxes.push($(this).val());
+					});
+					// Build
+					var tmp = {
+						editor_height:	$('#editor_height').val(),
+						tags:			$('#tags').val().split(/\s*,\s*/),
+						syntaxes:		syntaxes
+					};
+					// And save
+					localStorage["options"] = JSON.stringify(tmp);
+					// All good
+					alert("Saved OK\n\nThe settings will take effect when you next visit tumblr");
+				});
+		});
+	</script>
+	<style>
+		html, body {margin: 0; padding: 0;}
+		body {font-family: sans; background: #3B5774;}
+		.clearfix:after {clear: both; content: "."; display: block; height: 0; visibility: hidden; font-size: 0;}
+		img	{vertical-align: middle;}
+		#content {width: 760px; padding: 1px 20px; margin: 0 auto 50px auto; background: #FFFFFF; border-radius: 20px;}
+		#intro {text-align: center; background: url('gfx/icon_128.png') center -40px no-repeat;}
+		#intro p {margin: 0; padding: 50px 0 10px 0; font-size: 13px; font-style: italic; color: #FFFFFF;}
+		#editor_height {width: 100%; margin: 0;}
+		#tags {width: 760px; height: 72px; line-height: 20px; padding: 5px; border-color: #CCCCCC;}
+		#syntaxes {}
+		#syntaxes label {float: left; width: 240px; margin: 0 5px 5px 0; padding: 5px; background-color: #C7DA76; border-radius: 2px; cursor: pointer;}
+		#syntaxes label:nth-child(3n+3) {margin-right: 0;}
+		button		{float: left; width: 375px; line-height: 32px; padding: 5px; text-align: center; font-size: 20px;}
+		#save		{width: 100%; margin-bottom: 10px;}
+		#donate		{margin-right: 10px;}
+	</style>
+</head>
+<body>
+	
+	<!-- Intro -->
+	<div id="intro">
+		<p>Additional features for the dedicated Tumblr user</p>
+	</div>
+	
+	<div id="content">
+		
+		<!-- Some like them big -->
+		<h2>Editor height (<span id="editor_height_feedback">380px</span>)</h2>
+		<p>272 pixels isn't great for writing longer posts, tweak away.</p>
+		<p><input id="editor_height" type="range" min="50" max="1500" step="1" value="380" /></p>
+		
+		<!-- Quicktags -->
+		<h2>Quicktags</h2>
+		<p>Keep your tagging consistent. A comma separated list of tags to be added to the tumblr interface for quick reference.</p>
+		<p><textarea id="tags"></textarea></p>
+		
+		<!-- SyntaxHighlighter -->
+		<h2>SyntaxHighlighter options</h2>
+		<p>If you have instaled Alex Gorbatchev's excellent <a href="http://alexgorbatchev.com/SyntaxHighlighter/">SyntaxHighlighter</a> on your tumblr theme, this will allow you to quickly add code blocks using the WYSIWYG editor.</p>
+		<p><em><strong>Note</strong> Very crude for the time being</em></p>
+		<div id="syntaxes" class="clearfix">
+			<label><input type="checkbox" name="syntaxes" value="as3" />actionscript3</label>
+			<label><input type="checkbox" name="syntaxes" value="bash" />bash / shell</label>
+			<label><input type="checkbox" name="syntaxes" value="coldfusion" />coldfusion</label>
+			<label><input type="checkbox" name="syntaxes" value="csharp" />c#</label>
+			<label><input type="checkbox" name="syntaxes" value="cpp" />c++</label>
+			<label><input type="checkbox" name="syntaxes" value="css" />css</label>
+			<label><input type="checkbox" name="syntaxes" value="delphi" />delphi / pas / pascal</label>
+			<label><input type="checkbox" name="syntaxes" value="diff" />diff / patch</label>
+			<label><input type="checkbox" name="syntaxes" value="erlang" />erlang</label>
+			<label><input type="checkbox" name="syntaxes" value="groovy" />groovy</label>
+			<label><input type="checkbox" name="syntaxes" value="javascript" />javascript</label>
+			<label><input type="checkbox" name="syntaxes" value="java" />java</label>
+			<label><input type="checkbox" name="syntaxes" value="javafx" />javafx</label>
+			<label><input type="checkbox" name="syntaxes" value="perl" />perl</label>
+			<label><input type="checkbox" name="syntaxes" value="php" />php</label>
+			<label><input type="checkbox" name="syntaxes" value="plain" />plaintext</label>
+			<label><input type="checkbox" name="syntaxes" value="powershell" />powershell</label>
+			<label><input type="checkbox" name="syntaxes" value="python" />python</label>
+			<label><input type="checkbox" name="syntaxes" value="ruby" />ruby / rails / ror</label>
+			<label><input type="checkbox" name="syntaxes" value="scala" />scala</label>
+			<label><input type="checkbox" name="syntaxes" value="sql" />sql</label>
+			<label><input type="checkbox" name="syntaxes" value="vb" />vb.NET</label>
+			<label><input type="checkbox" name="syntaxes" value="xml" />xml / xhtml / xslt / html</label>
+		</div>
+		
+		<!-- Save and donate -->
+		<div class="clearfix">
+			<!-- Save -->
+			<button id="save">
+				<img src="gfx/server_components.png" width="32" height="32" />
+				save
+			</button>
+			<!-- Donate -->
+			<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+				<input type="hidden" name="cmd" value="_s-xclick">
+				<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----">
+				<button id="donate" type="submit">
+					<img src="gfx/money_in_envelope.png" width="32" height="32" />
+					donate (any)
+				</button>
+			</form>
+			<!-- Donate -->
+			<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+				<input type="hidden" name="cmd" value="_s-xclick">
+				<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----">
+				<button id="donate_5" type="submit">
+					<img src="gfx/money_in_envelope.png" width="32" height="32" />
+					donate (&pound;5)
+				</button>
+			</form>
+		</div>
+		<p><em>Donations pay for the development of Tweakr, <a href="http://github.com/oodavid/Tweakr">available on github</a></em></p>
+		
+		<!--
+		<h3>How to install SyntaxHighlighter</h3>
+		<p>in your head</p>
+		<pre>
+&lt;link href=&quot;http://alexgorbatchev.com/pub/sh/current/styles/shThemeDefault.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+&lt;link href=&quot;http://alexgorbatchev.com/pub/sh/current/styles/shThemeMidnight.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+&lt;style type=&quot;text/css&quot;&gt;
+	.syntaxhighlighter {padding: 10px; margin: 0!important;}
+	.syntaxhighlighter .toolbar {display: none;}
+	.syntaxhighlighter .gutter .line {border: none!important; width: 30px; text-align: right; margin-right: 10px; background: black!important; padding-right: 10px;}
+&lt;/style&gt;
+&lt;script src=&quot;http://alexgorbatchev.com/pub/sh/current/scripts/shCore.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;http://alexgorbatchev.com/pub/sh/current/scripts/shAutoloader.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
+		</pre>
+		<p>at the end of your document</p>
+		<pre>
+&lt;script type=&quot;text/javascript&quot;&gt;
+	SyntaxHighlighter.autoloader(
+		'applescript			http://alexgorbatchev.com/pub/sh/current/scripts/shBrushAppleScript.js',
+		'actionscript3 as3		http://alexgorbatchev.com/pub/sh/current/scripts/shBrushAS3.js',
+		'bash shell				http://alexgorbatchev.com/pub/sh/current/scripts/shBrushBash.js',
+		'coldfusion cf			http://alexgorbatchev.com/pub/sh/current/scripts/shBrushColdFusion.js',
+		'cpp c					http://alexgorbatchev.com/pub/sh/current/scripts/shBrushCpp.js',
+		'c# c-sharp csharp		http://alexgorbatchev.com/pub/sh/current/scripts/shBrushCSharp.js',
+		'css					http://alexgorbatchev.com/pub/sh/current/scripts/shBrushCss.js',
+		'delphi pascal			http://alexgorbatchev.com/pub/sh/current/scripts/shBrushDelphi.js',
+		'diff patch pas			http://alexgorbatchev.com/pub/sh/current/scripts/shBrushDiff.js',
+		'erl erlang				http://alexgorbatchev.com/pub/sh/current/scripts/shBrushErlang.js',
+		'groovy					http://alexgorbatchev.com/pub/sh/current/scripts/shBrushGroovy.js',
+		'java					http://alexgorbatchev.com/pub/sh/current/scripts/shBrushJava.js',
+		'jfx javafx				http://alexgorbatchev.com/pub/sh/current/scripts/shBrushJavaFX.js',
+		'js jscript javascript	http://alexgorbatchev.com/pub/sh/current/scripts/shBrushJScript.js',
+		'perl pl				http://alexgorbatchev.com/pub/sh/current/scripts/shBrushPerl.js',
+		'php					http://alexgorbatchev.com/pub/sh/current/scripts/shBrushPhp.js',
+		'text plain				http://alexgorbatchev.com/pub/sh/current/scripts/shBrushPlain.js',
+		'py python				http://alexgorbatchev.com/pub/sh/current/scripts/shBrushPython.js',
+		'ruby rails ror rb		http://alexgorbatchev.com/pub/sh/current/scripts/shBrushRuby.js',
+		'sass scss				http://alexgorbatchev.com/pub/sh/current/scripts/shBrushSass.js',
+		'scala					http://alexgorbatchev.com/pub/sh/current/scripts/shBrushScala.js',
+		'sql					http://alexgorbatchev.com/pub/sh/current/scripts/shBrushSql.js',
+		'vb vbnet				http://alexgorbatchev.com/pub/sh/current/scripts/shBrushVb.js',
+		'xml xhtml xslt html	http://alexgorbatchev.com/pub/sh/current/scripts/shBrushXml.js'
+	);
+	SyntaxHighlighter.all();
+&lt;/script&gt;
+		</pre>
+	</div>
+	-->
+	
+</body>
+</html>

@@ -1,0 +1,23 @@
+{
+	"name":			"tweakr.",
+	"version":		"0.1",
+	"description":	"Tweaks Tumblr",
+	"permissions": [
+		"http://www.tumblr.com/*",
+		"https://www.tumblr.com/*"
+	],
+	"icons": {
+		"128":	"gfx/icon_128.png",
+		"48":	"gfx/icon_48.png",
+		"16":	"gfx/icon_16.png"
+	},
+	"options_page": "options.html",
+	"background_page" : "background.html",
+	"content_scripts": [
+		{
+			"matches":	["*://www.tumblr.com/*"],
+			"css":		["tweakr.css"],
+			"js":		["jquery-1.7.1.min.js", "tweakr.js"]
+		}
+	]
+}

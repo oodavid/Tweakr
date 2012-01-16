@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Tumblr Hate Background</title>
+	<script>
+		// This allows the content scripts to gain access to the options page localStorage
+		//  See: http://www.amateurtopologist.com/blog/2011/09/29/settings-in-chrome-extension-content-scripts/
+		chrome.extension.onRequest.addListener(
+			function(request, sender, sendResponse) {
+				switch (request.action) {
+					case "getOptions":
+						// Return the options
+						var options = JSON.parse(localStorage["options"] || '{}');
+						sendResponse(options);
+						break;
+				}
+			}
+		);
+	</script>
+</head>
+<body>
+</body>
+</html>
