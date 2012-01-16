@@ -23,6 +23,7 @@ chrome.extension.sendRequest({ action: "getOptions" }, function (options) {
 		// Add the click events
 		$('#my_tags span').click(function(e){
 			insert_tag($(this).text())
+			 _gaq.push(['_trackEvent', $(this).text(), 'tagged']);
 		});
 	//
 	// Editor height
@@ -49,6 +50,7 @@ chrome.extension.sendRequest({ action: "getOptions" }, function (options) {
 				var el = $('<td><span class="tweakr">' + v +'</span></td>');
 				el.click(function(e){
 					injectHTML('<pre class="brush: ' + v + ';">your ' + v + ' code here...</pre>');
+					_gaq.push(['_trackEvent', v, 'syntaxed']);
 				});
 				lastTool.after(el);
 			});
@@ -78,32 +80,21 @@ insert_tag = function(tag) {
     }
 };
 /*
- *
- *
- *
+ * WYSIWYG
+ *		Very fundamental for the time being
  */
 injectHTML = function(html){
 	// For now, just this
 	$('#post_two_ifr').contents().find('body').append($(html));
 };
-
-/*
-getSelection = function(){
-            return ( window.getSelection ) ? window.getSelection() : document.selection;
-        },
-
-        getRange : function()
-        {
-            var selection = this.getSelection();
-
-            if ( !( selection ) )
-                return null;
-
-            return ( selection.rangeCount > 0 ) ? selection.getRangeAt(0) : selection.createRange();
-        },
-
-                    var rng = self.getRange();
-                    rng.pasteHTML('<br />');
-                    rng.collapse(false);
-                    rng.select();
-*/
+/**
+ * Analytics
+ */
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-24181653-6']);
+_gaq.push(['_trackPageview']);
+(function() {
+	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	ga.src = 'https://ssl.google-analytics.com/ga.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
